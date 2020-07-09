@@ -16,5 +16,14 @@
     "pg": "^7.5.0",
     "supertest": "^3.3.0"
   },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/colts18seth/Express_Bookstore.git"
+  },
+  "bugs": {
+    "url": "https://github.com/colts18seth/Express_Bookstore/issues"
+  },
+  "homepage": "https://github.com/colts18seth/Express_Bookstore#readme",
   "description": ""
 }
