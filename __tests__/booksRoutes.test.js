@@ -3,41 +3,112 @@ const request = require("supertest");
 const app = require("../app");
 const db = require("../db");
 
-describe("Book Routes Test", function () {
+describe("POST /books", function () {
+
     beforeEach(async function () {
         await db.query("DELETE FROM books");
     });
-    done();
-});
 
-describe("POST /books", function () {
     test("Creates new book", async function () {
         const res = await request(app)
             .post("/books")
             .send({
-                "isbn": "aosdigf",
+                "isbn": "Testing",
                 "amazon_url": "amazon.com",
-                "author": "Seth2",
+                "author": "Test",
                 "language": "English",
                 "pages": 118,
                 "publisher": "Cannon",
-                "title": "Lafollette2",
+                "title": "Title_Test",
                 "year": 2020
             });
-        done();
 
         expect(res.statusCode).toBe(201);
         expect(res.body).toEqual({
             "book": {
-                "isbn": "aosdigf",
+                "isbn": "Testing",
                 "amazon_url": "amazon.com",
-                "author": "Seth2",
+                "author": "Test",
                 "language": "English",
                 "pages": 118,
                 "publisher": "Cannon",
-                "title": "Lafollette2",
+                "title": "Title_Test",
                 "year": 2020
             }
+        })
+    })
+})
+
+describe("GET /books", function () {
+
+    beforeEach(async function () {
+        await request(app)
+            .post("/books")
+            .send({
+                "isbn": "Testing",
+                "amazon_url": "amazon.com",
+                "author": "Test",
+                "language": "English",
+                "pages": 118,
+                "publisher": "Cannon",
+                "title": "Title_Test",
+                "year": 2020
+            });
+    });
+
+    test("Gets all books", async function () {
+        const res = await request(app)
+            .get("/books")
+
+        expect(res.statusCode).toBe(200);
+        expect(res.body).toEqual({
+            "books": [{
+                "isbn": "Testing",
+                "amazon_url": "amazon.com",
+                "author": "Test",
+                "language": "English",
+                "pages": 118,
+                "publisher": "Cannon",
+                "title": "Title_Test",
+                "year": 2020
+            }]
+        })
+    })
+})
+
+describe("GET /books", function () {
+
+    beforeEach(async function () {
+        await request(app)
+            .post("/books")
+            .send({
+                "isbn": "Testing",
+                "amazon_url": "amazon.com",
+                "author": "Test",
+                "language": "English",
+                "pages": 118,
+                "publisher": "Cannon",
+                "title": "Title_Test",
+                "year": 2020
+            });
+    });
+
+    test("Gets all books", async function () {
+        const res = await request(app)
+            .get("/books")
+
+        expect(res.statusCode).toBe(200);
+        expect(res.body).toEqual({
+            "books": [{
+                "isbn": "Testing",
+                "amazon_url": "amazon.com",
+                "author": "Test",
+                "language": "English",
+                "pages": 118,
+                "publisher": "Cannon",
+                "title": "Title_Test",
+                "year": 2020
+            }]
         })
     })
 })
